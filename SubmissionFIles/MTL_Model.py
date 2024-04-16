@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler, Normalizer
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score,confusion_matrix,f1_score, roc_curve, auc,roc_auc_score
-from MLSMOTE import get_tail_label,get_index,get_minority_instace,MLSMOTE
+from ..Include.MLSMOTE import get_tail_label,get_index,get_minority_instace,MLSMOTE
 from scipy.stats import yeojohnson
 
 #---------------------------------------------------------------------------------#
