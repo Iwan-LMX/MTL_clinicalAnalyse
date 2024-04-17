@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC 
 from sklearn.model_selection import train_test_split
@@ -27,9 +29,9 @@ def loss(y_true, y_pred):
 #---------------------------------------------------------------------------------#
 
 # Loading data
-x_train = np.load('../Training data/X_train.npy') 
-y_train = np.load('../Training data/y_train.npy')  
-x_test=np.load("../Testing data/X_test.npy")
+x_train = np.load('./Training data/X_train.npy') 
+y_train = np.load('./Training data/y_train.npy')  
+x_test=np.load("./Testing data/X_test.npy")
 
 
 x_train = pd.DataFrame(x_train).rename(columns={i: f"x_{i}" for i in range(111)})
