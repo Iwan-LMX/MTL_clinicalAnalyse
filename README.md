@@ -1,6 +1,20 @@
+<!-- 
+    Author: Iwan Li, z5433288
+    Date: 2024-04-18
+-->
 # MTL_clinicalAnalyse
 This is a project about using Multitask learning method to analyze clinical trial and predicting something.
 
+# ⭐ How to Run it in your Machine
+1. Preparing Python environment (better higher than 3.12.1)
+
+2. Download the source code, uncompress it.
+
+3. Maybe you should install some library including but not limited to `numpy, pandas, tensorflow, scipy, scikit-learn`.  You can just use command like `pip3 install numpy` to install one library.
+
+4. For `EDA.ipynb`, you should choose an exist python in your machine then 'run all'.
+
+5. For `xxx.py` files, you should use a terminal command `python xxx.py` or `python3 xxx.py` to run them
 
 # How to develop the project
 
@@ -8,38 +22,77 @@ Contributors need check out a new branch to develop, you can do anything in your
 
 Via "pull requests" in Git hub to upload your code.
 
-(You can just add the files out of your responses to gitignore. Thus they won't be sync to your branch while you push. It's up to you..)  
+(You can just add the files out of your responses to gitignore. Thus they won't be sync to your branch while you push. It's up to you..) 
 
     :.
-    │   model.ipynb     #Write MTL algorithm codes in model
-    │   model.py        
-    │   README.md       
+    │   EDA.ipynb       #Extensive exploratory data analysis
+    │   MTL_Model.py    #Hard Parameter Shared MTL model
+    │   predicts.csv    #Prediction of MTL model
+    │   README.md
     │
-    ├───Separate Models 
-    │   separates.ipynb #The 11 separate models to compare with MTL
-    │   separates.py
+    ├───Include
+    │   │   MLSMOTE.py
+    │   │
+    │   └───__pycache__
+    │           MLSMOTE.cpython-312.pyc
     │
-    ├───Testing data    #Testing data don't modify them
-    │   X_test.npy
+    ├───SeparateModels          #Traditional Classification Models
+    │       KNN.py
+    │       logistic.py
+    │       naive_bayes.py
+    │       RandomForest.py
+    │       SVM.py
     │
-    └───Training data   #Training data don't modify them
-        X_train.npy
-        y_train.npy
-        EDA.ipynb
+    ├───Testing data
+    │       X_test.npy
+    │
+    └───Training data
+            X_train.npy
+            y_train.npy
     
     #py file is same to ipynb, use which one you like
     #add your .vscode or any other config files to 'gitignore'
 
-# Study approaches
-## Extensive exploratory data analysis (EDA)
+# 📖 Study approaches
+
+## ⭐ Extensive exploratory data analysis (EDA)
+
 Since all the features in the data are anonymous, an EDA is very required.
 
-The analysising strateges and results are shown in "EDA.ipynb".
+It follows traditional data analysis strategies:
 
-### Design MTL Model
-From study the result of EDA we decide use "xxx" algorithm as our classification learning model. 
+1. Process data overview. (got general understanding of data we processing)
+
+2. Check the missing and unique values.
+
+3. Check distribution of data
+
+4. Analyse feature skewness and kurtosis (If features of train data and test data varies a lot we should transform them)
+
+    4.1 Transform and fix important features (The train data and test data varies a lot, it will affect final prediction)
+
+5. Analyse types of feature values
+    
+The analysing techniques and results are shown in `EDA.ipynb`.
+
+## Design MTL Model
+
+From study the result of EDA we decide use Hard Parameter Shared Model as our Multi Task classification model.
+
+It's shared layer very similar to Neural Network, that can well combine the input train data.
+
+These data will be put into Task Specific layers to predict.
+
+Here we use 4 shared layers, and 2 task specific layers to design the model.
+
+Detail of codes are shown in `MTL_Model.py`
 
 
-### Design seperate sub learning models
+## Design separate sub learning models
+We choose 5 popular traditional classification models to compare with MTL Model.
+They are: KNN (K Nearest Neighbour), Logistic Regression, Naive Bayes, Random FOrest and SVM (Support Vector Machines)
 
-"Wait for append"
+Detail of these codes are shown in within the folder `./SeparateModels`
+
+# Last 🎉
+Thanks for [@Lingbo Ban](https://github.com/banlingbo) and [@Yishan Ma](https://github.com/Lilithys).  This project can be complete till the end can not leave with their efforts and contributions.
