@@ -16,9 +16,9 @@ from scipy.stats import yeojohnson
 #---------------------------------------------------------------------------------#
 
 # Loading data
-x_train = np.load('./X_train.npy') 
-y_train = np.load('./y_train.npy')  
-x_test=np.load("./X_test.npy")
+x_train = np.load('./Training data/X_train.npy') 
+y_train = np.load('./Training data/y_train.npy')  
+x_test=np.load("./Testing data/X_test.npy")
 
 x_train = pd.DataFrame(x_train).rename(columns={i: f"x_{i}" for i in range(111)})
 y_train = pd.DataFrame(y_train).rename(columns={i: f"y_{i}" for i in range(11)})
