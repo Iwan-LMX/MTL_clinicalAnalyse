@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, accuracy_score,confusion_matrix,f1_score, roc_curve, auc,roc_auc_score,log_loss,make_scorer
+from sklearn.metrics import classification_report,confusion_matrix,f1_score, roc_curve, auc,roc_auc_score,log_loss,make_scorer
 from Include.MLSMOTE import get_tail_label,get_index,get_minority_instace,MLSMOTE
 
 #---------------------------------------------------------------------------------#
@@ -75,7 +75,6 @@ loss_scorer = make_scorer(loss, greater_is_better=False)
 num_labels = y_train_final.shape[1]  
 naive_bayes_models = []
 average_scores = {
-    'accuracy': [],
     'f1_score': [],
     'roc_auc': []
 }
@@ -95,11 +94,9 @@ for i in range(num_labels):
     Y_pred_prob = model.predict_proba(X_valid)
     predictions_proba[:, 2*i:2*i+2] = Y_pred_prob
 
-    acc = accuracy_score(Y_valid_label, Y_pred)
     f1 = f1_score(Y_valid_label, Y_pred)
     roc_auc = roc_auc_score(Y_valid_label, Y_pred_prob[:, 1])
 
-    average_scores['accuracy'].append(acc)
     average_scores['f1_score'].append(f1)
     average_scores['roc_auc'].append(roc_auc)
 
@@ -108,11 +105,9 @@ for i in range(num_labels):
 
 # Calculate average evaluation
 average_loss = loss(Y_valid, predictions_proba)
-mean_accuracy = np.mean(average_scores['accuracy'])
 mean_f1 = np.mean(average_scores['f1_score'])
 mean_roc_auc = np.mean(average_scores['roc_auc'])
 
-print(f"Average Accuracy: {mean_accuracy}")
 print(f"Average F1-Score: {mean_f1}")
 print(f"Average ROC-AUC: {mean_roc_auc}")
 print(f"Average Loss: {average_loss}")

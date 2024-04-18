@@ -14,7 +14,9 @@ This is a project about using Multitask learning method to analyze clinical tria
 
 4. For `EDA.ipynb`, you should choose an exist python in your machine then 'run all'.
 
-5. For `xxx.py` files, you should use a terminal command `python xxx.py` or `python3 xxx.py` to run them
+5. For `xxx.py` files, you should use a terminal command `python xxx.py` or `python3 xxx.py` to run them.
+
+Especially: if you need run a model please make sure that file is listed on current path. (i.e. if you need run Separate Models you need change directory to `SeparateModels`)    
 
 # How to develop the project
 

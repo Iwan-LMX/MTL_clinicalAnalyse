@@ -105,14 +105,12 @@ micro_f1 = f1_score(Y_valid, Y_pred_binary, average='micro')
 print("Macro F1 Score:", macro_f1)
 print("Micro F1 Score:", micro_f1)
 
-# Report evaluate result
-# report = classification_report(Y_valid, Y_pred_binary, target_names=[f'y_{i}' for i in range(Y_valid.shape[1])], zero_division=0)
-# print(report)
-
 print(f'\nTrain Precision: {train_precision[-1]}')
 print(f'Validation Recall: {val_recall[-1]}\n')
+
 print(f'Train Recall: {train_recall[-1]}')
 print(f'Validation Precision: {val_precision[-1]}\n')
+
 print(f'Train Loss: {train_loss[-1]}')
 print(f'Test Loss: {val_loss[-1]}')
 
