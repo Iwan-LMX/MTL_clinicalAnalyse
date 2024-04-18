@@ -3,9 +3,7 @@ import pandas as pd
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC 
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC 
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score,confusion_matrix,f1_score, roc_curve, auc,roc_auc_score,log_loss,make_scorer
 from Include.MLSMOTE import get_tail_label,get_index,get_minority_instace,MLSMOTE
@@ -69,13 +67,13 @@ y_train_final = pd.concat([y_train, y_resampled], ignore_index=True)
 X_train, X_valid, Y_train, Y_valid = train_test_split(X_train_final, y_train_final, test_size=0.2, random_state=42)
 
 #---------------------------------------------------------------------------------#
-# -------------------------Configure SVM Model & Training-------------------------#
+# ----------------------Configure Logistic Model & Training-----------------------#
 #---------------------------------------------------------------------------------#
 loss_scorer = make_scorer(loss, greater_is_better=False)
 
-# Create SVM model
+# Create Logistic model
 num_labels = y_train_final.shape[1]  
-svm_models = []
+logistic_models = []
 average_scores = {
     'accuracy': [],
     'f1_score': [],
@@ -88,9 +86,9 @@ for i in range(num_labels):
     Y_train_label = Y_train.iloc[:, i];     Y_valid_label = Y_valid.iloc[:, i]
 
     # Train Model
-    model = SVC(probability=True)  
+    model = LogisticRegression(solver='liblinear')
     model.fit(X_train, Y_train_label)
-    svm_models.append(model)
+    logistic_models.append(model)
 
     # Make prediction
     Y_pred = model.predict(X_valid)
@@ -124,8 +122,3 @@ print(f"Average Loss: {average_loss}")
 print()
 print("-----------------Predictions:-----------------")
 print(predictions)
-
-
-
-
-
