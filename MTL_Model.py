@@ -87,7 +87,7 @@ model.compile(
     ])
 
 # Training
-history = model.fit(X_train, Y_train, epochs=100, validation_data=(X_valid, Y_valid))
+history = model.fit(X_train, Y_train, epochs=50, validation_data=(X_valid, Y_valid))
 
 
 #---------------------------------------------------------------------------------#
