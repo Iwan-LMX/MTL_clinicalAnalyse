@@ -119,6 +119,5 @@ print(f'Test Loss: {val_loss[-1]}')
 #---------------------------------------------------------------------------------#
 y_hat = model.predict(x_test)
 
-y_hat = (y_hat > 0.5).astype(int)
 
 print(y_hat)
