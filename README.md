@@ -27,9 +27,7 @@ Via "pull requests" in Git hub to upload your code.
 (You can just add the files out of your responses to gitignore. Thus they won't be sync to your branch while you push. It's up to you..) 
 
     :.
-    │   EDA.ipynb       #Extensive exploratory data analysis
-    │   MTL_Model.py    #Hard Parameter Shared MTL model
-    │   predicts.csv    #Prediction of MTL model
+    │   EDA.ipynb       #Extensive exploratory data analysis  
     │   README.md
     │
     ├───Include
@@ -38,7 +36,11 @@ Via "pull requests" in Git hub to upload your code.
     │   └───__pycache__
     │           MLSMOTE.cpython-312.pyc
     │
-    ├───SeparateModels          #Traditional Classification Models
+    ├───MTL Models      #MTL Models
+    │       MTL_HardParameterShared.py
+    │       MTL_NeuralNetwork.py
+    │
+    ├───SeparateModels  #Traditional Classification Models
     │       KNN.py
     │       logistic.py
     │       naive_bayes.py
@@ -51,6 +53,7 @@ Via "pull requests" in Git hub to upload your code.
     └───Training data
             X_train.npy
             y_train.npy
+
     
     #py file is same to ipynb, use which one you like
     #add your .vscode or any other config files to 'gitignore'
@@ -79,15 +82,25 @@ The analysing techniques and results are shown in `EDA.ipynb`.
 
 ## Design MTL Model
 
-From study the result of EDA we decide use Hard Parameter Shared Model as our Multi Task classification model.
+From study the result of EDA we decide use Hard Parameter Shared Model and Neural Network as our Multi Task classification model.
 
+### Neural Network:
+Build based on perceptron learning, and neural nodes.
+
+By design multiple layers to combine and process data, then predict one or multiple results.
+
+Here we use 5 layers of neural network to process the problem.
+
+Detail of codes are shown in `MTL Models/MTL_NeuralNetwork.py`
+
+### Hard Parameter Shared Model:
 It's shared layer very similar to Neural Network, that can well combine the input train data.
 
 These data will be put into Task Specific layers to predict.
 
 Here we use 4 shared layers, and 2 task specific layers to design the model.
 
-Detail of codes are shown in `MTL_Model.py`
+Detail of codes are shown in `MTL Models/MTL_HardParameterShared.py`
 
 
 ## Design separate sub learning models

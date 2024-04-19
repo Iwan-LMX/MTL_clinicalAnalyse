@@ -2,6 +2,8 @@
 import numpy as np
 import tensorflow as tf
 import pandas as pd
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Dense, Concatenate
 from sklearn.preprocessing import StandardScaler, Normalizer
@@ -16,9 +18,9 @@ from scipy.stats import yeojohnson
 #---------------------------------------------------------------------------------#
 
 # Loading data
-x_train = np.load('./Training data/X_train.npy') 
-y_train = np.load('./Training data/y_train.npy')  
-x_test=np.load("./Testing data/X_test.npy")
+x_train = np.load('../Training data/X_train.npy') 
+y_train = np.load('../Training data/y_train.npy')  
+x_test=np.load("../Testing data/X_test.npy")
 
 x_train = pd.DataFrame(x_train).rename(columns={i: f"x_{i}" for i in range(111)})
 y_train = pd.DataFrame(y_train).rename(columns={i: f"y_{i}" for i in range(11)})
@@ -61,20 +63,13 @@ X_train, X_valid, Y_train, Y_valid = train_test_split(X_train_final, y_train_fin
 #---------------------------------------------------------------------------------#
 # -------------------------Configure MTL Model & Training-------------------------#
 #---------------------------------------------------------------------------------#
-# Define hard shared parameter layers 
+# Define Neural Network 
 shared_input = Input(shape=(X_train.shape[1], ), name='shared_input')
-shared_layer = Dense(128, activation='relu')(shared_input)
+shared_layer = Dense(256, activation='relu')(shared_input)
 shared_layer = Dense(128, activation='relu')(shared_layer)
 shared_layer = Dense(64, activation='relu')(shared_layer)
-shared_layer = Dense(32, activation='tanh')(shared_layer)
-
-# Task specific layers
-outputs = []
-for i in range(11):
-    task_output = Dense(32,  activation='tanh', name=f'task_{i}_hidden')(shared_layer)
-    task_output = Dense(1,  activation='sigmoid', name=f'task_{i}_output')(task_output)
-    outputs.append(task_output)
-outputs = Concatenate(axis=-1)(outputs)
+shared_layer = Dense(32, activation='relu')(shared_layer)
+outputs      = Dense(11, activation='sigmoid')(shared_layer)
 
 # Configure model and compile arguments
 model = Model(inputs=shared_input, outputs=outputs) 
@@ -117,7 +112,6 @@ print(f'Test Loss: {val_loss[-1]}')
 #---------------------------------------------------------------------------------#
 # -----------------------------Predcit test data and show-------------------------#
 #---------------------------------------------------------------------------------#
-y_hat = model.predict(x_test)
-
+y_hat = pd.DataFrame(model.predict(x_test)).rename(columns={i: f"y_pred_{i}" for i in range(11)})
 
 print(y_hat)
